@@ -1,0 +1,10 @@
+namespace TestFlat;
+
+table StcTestMessage2
+{
+    age  : uint;
+    name : string;
+    vec  : [uint];
+}
+
+root_type StcTestMessage2;

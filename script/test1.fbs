@@ -1,0 +1,9 @@
+namespace TestFlat;
+
+table StcTestMessage1
+{
+    name : string;
+    age  : uint;
+}
+
+root_type StcTestMessage1;
