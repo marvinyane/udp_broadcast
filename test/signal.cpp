@@ -8,13 +8,9 @@ int main()
     sleep(1);
 
     BroadMessageSp msg(new StcBroadMessageTest1("marvin", 26));
-
     signal.broadcast(msg);
 
-    while (1)
-    {
-        sleep(100);
-    }
+    sleep(10);
 
     return 0;
 }

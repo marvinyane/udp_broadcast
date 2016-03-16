@@ -1,3 +1,5 @@
+#include <vector>
+
 #include "StcBroadMessageTest1.h"
 #include "BroadSignal.h"
 #include "BroadReceive.h"
@@ -6,6 +8,13 @@
 class testReceive : public BroadReceive
 {
     public:
+        testReceive()
+        {
+            std::vector<int> f;
+            f.push_back(STC_BROADMESSAGE_TEST_1);
+
+            filter(f);
+        }
         void handleMessage(BroadMessageSp sp)
         {
             int id = sp->getId();
@@ -23,6 +32,7 @@ class testReceive : public BroadReceive
 int main()
 {
     testReceive recv;
+    recv.start();
 
     while (1)
     {

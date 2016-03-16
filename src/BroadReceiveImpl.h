@@ -67,15 +67,18 @@ class BroadReceiveImpl
                 BroadMessageFactory factory;
                 BroadMessageSp sp = factory.createMessage(buf, recvlen);
 
-                if (recvlen > 0)
+                if (std::find(m_filter.begin(), m_filter.end(), sp->getId()) != m_filter.end())
                 {
                     m_handler->handleMessage(sp);
                 }
-                else 
-                {
-                    perror("recv from : ");
-                }
+
             }
+        }
+
+        void filter(const std::vector<int>& f)
+        {
+            // TODO: thread!
+            m_filter = f;
         }
 
 
@@ -84,8 +87,9 @@ class BroadReceiveImpl
     private:
         BroadReceiveMessageHandler* m_handler;
         int m_fd;
-
         pthread_t tid;
+
+        std::vector<int> m_filter;
 };
 
 
