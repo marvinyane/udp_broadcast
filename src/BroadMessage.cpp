@@ -1,32 +1,31 @@
 #include "BroadMessage.h"
-#include "BroadMessagePrivate.h"
+#include "BroadMessageImpl.h"
 
 BroadMessage::BroadMessage(int id)
     : m_id (id)
+    , m_data()
+    , m_impl(new BroadMessageImpl)
 {
-    pri = new Private(NULL, 0);
 }
 
-BroadMessage::BroadMessage(int id, Private* _pri)
+BroadMessage::BroadMessage(int id, char* buf, int len)
     : m_id (id)
-    , pri(_pri)
+    , m_data(buf, len)
+    , m_impl(new BroadMessageImpl)
 {
+}
+
+void BroadMessage::setData(char* buf, int len)
+{
+    m_data = std::string(buf, len);
+}
+
+const std::string& BroadMessage::getData()
+{
+    return m_data;
 }
 
 BroadMessage::~BroadMessage()
 {
-    if (pri)
-    {
-        delete pri;
-    }
-}
-
-void BroadMessage::setPrivate(char* buf, int len)
-{
-    pri->m_data = std::string(buf, len);
-}
-
-const char* BroadMessage::getPrivate()
-{
-    return pri->m_data.data();
+    delete m_impl;
 }

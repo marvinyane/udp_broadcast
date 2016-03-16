@@ -21,8 +21,8 @@ class StcBroadMessageTest1 : public BroadMessage
         }
 
         // this is for reader!
-        StcBroadMessageTest1(int id, BroadMessage::Private* pri) 
-            : BroadMessage(id, pri)
+        StcBroadMessageTest1(int id, char* buf, int len)
+            : BroadMessage(id, buf, len)
             , m_name()
             , m_age(0)
         {
@@ -56,14 +56,14 @@ class StcBroadMessageTest1 : public BroadMessage
             char* buf = (char*) builder.GetBufferPointer();
             int len = builder.GetSize();
 
-            setPrivate(buf, len);
+            setData(buf, len);
         }
 
         void unpack()
         {
-            const char* buf = getPrivate();
+            const std::string& data = getData();
 
-            const TestFlat::StcTestMessage1* obj = TestFlat::GetStcTestMessage1((uint8_t*)buf);
+            const TestFlat::StcTestMessage1* obj = TestFlat::GetStcTestMessage1((uint8_t*)data.data());
 
             m_id = obj->id();
             m_name = obj->name()->data();

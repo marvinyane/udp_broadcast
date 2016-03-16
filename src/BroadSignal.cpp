@@ -1,5 +1,4 @@
 #include "BroadMessage.h"
-#include "BroadMessagePrivate.h"
 #include "BroadSignal.h"
 #include "BroadSignalImpl.h"
 
@@ -16,7 +15,7 @@ BroadSignal::~BroadSignal()
 
 int BroadSignal::broadcast(BroadMessageSp msg)
 {
-    m_impl->broadcast(msg->pri->m_data);
+    m_impl->broadcast(msg->getData());
 
     return 0;
 }

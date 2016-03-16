@@ -10,19 +10,22 @@ class BroadReceiveImpl;
 
 class BroadReceiveMessageHandler
 {
-    public:
-        virtual void handleMessage(BroadMessageSp msg) = 0;
+public:
+    virtual void handleMessage(BroadMessageSp msg) = 0;
 };
 
 class BroadReceive : public BroadReceiveMessageHandler
 {
     public:
+        // start thread to listen?
         BroadReceive();
         virtual ~BroadReceive();
 
+        void start();
+
+        // how filter?
         int filter(const std::vector<int>& f);
 
-        void start();
         void stop();
         
     private:

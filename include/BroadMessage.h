@@ -2,20 +2,16 @@
 #define __BROADMESSAGE_H__
 
 #include <memory>
+#include <string>
 
-class BroadSignal;
-class BroadReceive;
+class BroadMessageImpl;
+class BroadMessageTool;
 
 class BroadMessage
 {
     public:
-        struct Private;
-
-        // this is for writer
         BroadMessage(int id);
-
-        // this is for reader
-        BroadMessage(int id, Private* pri);
+        BroadMessage(int id, char* buf, int len);
 
         virtual ~BroadMessage();
 
@@ -24,20 +20,24 @@ class BroadMessage
              return m_id;
         }
 
+        void setData(char* buf, int len);
+
+        const std::string& getData();
 
     protected:
         int m_id;
-        Private* pri;
-
-        void setPrivate(char* buf, int len);
-        const char* getPrivate();
 
     private:
+
 
         virtual void pack() = 0;
         virtual void unpack() = 0;
 
-friend class BroadSignal;
+    private:
+        std::string m_data;
+        BroadMessageImpl* m_impl;
+
+friend class BroadMessageTool;
 
 };
 
