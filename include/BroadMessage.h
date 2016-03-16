@@ -37,7 +37,7 @@ class BroadMessage
         virtual void pack() = 0;
         virtual void unpack() = 0;
 
- friend class BroadSignal;
+friend class BroadSignal;
 
 };
 

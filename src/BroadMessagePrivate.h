@@ -15,6 +15,9 @@ struct BroadMessage::Private
 
 
     std::string m_data;
+
+
+    friend class BroadMessageFactory;
 };
 
 #endif

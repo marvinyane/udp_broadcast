@@ -11,6 +11,7 @@
 #include <functional>
 
 #include "BroadReceive.h"
+#include "BroadMessageFactory.h"
 
 #define SERVICE_PORT    (65001)
 
@@ -31,7 +32,7 @@ class BroadReceiveImpl
 
             /* set reuse */
             int optval = 1;
-            setsockopt(m_fd, SOL_SOCKET,SO_REUSEADDR, &optval, sizeof optval);
+            setsockopt(m_fd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof optval);
 
             memset((char *)&myaddr, 0, sizeof(myaddr));
             myaddr.sin_family = AF_INET;
@@ -62,10 +63,13 @@ class BroadReceiveImpl
                 char buf[1024];
 
                 int recvlen = recvfrom(m_fd, buf, sizeof(buf), 0, (struct sockaddr*)&recvaddr, &addrlen);
+                
+                BroadMessageFactory factory;
+                BroadMessageSp sp = factory.createMessage(buf, recvlen);
 
                 if (recvlen > 0)
                 {
-                    m_handler->handleMessage(buf, recvlen);
+                    m_handler->handleMessage(sp);
                 }
                 else 
                 {

@@ -49,7 +49,7 @@ class StcBroadMessageTest1 : public BroadMessage
         {
             flatbuffers::FlatBufferBuilder builder;
             auto name = builder.CreateString(m_name);
-            auto flat = TestFlat::CreateStcTestMessage1(builder, name, m_age);
+            auto flat = TestFlat::CreateStcTestMessage1(builder, m_id, name, m_age);
             builder.Finish(flat);
 
 
@@ -65,6 +65,7 @@ class StcBroadMessageTest1 : public BroadMessage
 
             const TestFlat::StcTestMessage1* obj = TestFlat::GetStcTestMessage1((uint8_t*)buf);
 
+            m_id = obj->id();
             m_name = obj->name()->data();
             m_age = obj->age();
         }

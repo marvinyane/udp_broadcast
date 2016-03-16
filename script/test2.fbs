@@ -2,6 +2,7 @@ namespace TestFlat;
 
 table StcTestMessage2
 {
+    id : uint;
     age  : uint;
     name : string;
     vec  : [uint];

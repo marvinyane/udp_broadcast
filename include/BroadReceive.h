@@ -11,7 +11,7 @@ class BroadReceiveImpl;
 class BroadReceiveMessageHandler
 {
     public:
-        virtual void handleMessage(char* buf, int len) = 0;
+        virtual void handleMessage(BroadMessageSp msg) = 0;
 };
 
 class BroadReceive : public BroadReceiveMessageHandler
@@ -25,11 +25,8 @@ class BroadReceive : public BroadReceiveMessageHandler
         void start();
         void stop();
         
-        void handleMessage(char* buf, int len);
-
     private:
         BroadReceiveImpl* m_impl;
 };
-
 
 #endif
